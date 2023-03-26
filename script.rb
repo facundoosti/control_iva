@@ -167,7 +167,7 @@ def crear_archivo_resultante
         sheet.add_row [*AfipValidator.new(row, @holistor).call]
       end
     end
-    p.serialize("archivo_resultante.xlsx")
+    p.serialize("control_iva.xlsx")
   end
 end
 
