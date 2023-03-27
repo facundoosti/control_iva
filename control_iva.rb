@@ -2,6 +2,7 @@
 
 require 'roo'
 require 'caxlsx'
+require 'pry'
 
 FACTURAS = { "FACTURA A" => "1 - Factura A", "N/CA A" => "3 - Nota de Crédito A", "FACTURA B" => "6 - Factura B", "N/CB B" => "8 - Nota de Crédito B", "FACTURA C" => "11 - Factura C", "N/CC C" => "3 - Nota de Crédito C" }
 
@@ -132,12 +133,14 @@ class AfipValidator < Validator
   end
 
   def invoice_amount
-    row[10].value&.abs
+    row[10]&.value&.abs
   end
 
   def build_validation
     return Validation.new(false, "Factura no encontrada en HOLISTOR") if target.nil?
-    return Validation.new(false, "Factura C HOLISTOR") if target[2].value == "C"
+    return Validation.new(false, "Factura C HOLISTOR") if row[1].value.include?('Factura C') || target[2].value == "C"
+
+    Validation.new(true, nil)
   end
 
   def target
@@ -160,8 +163,6 @@ def crear_archivo_resultante
 
       @afip.each do |row|
         validator = AfipValidator.new(row, @holistor)
-        next unless validator.valid?
-
         sheet.add_row [*AfipValidator.new(row, @holistor).call]
       end
     end
