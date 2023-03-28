@@ -6,4 +6,8 @@ source "https://rubygems.org"
 
 gem 'caxlsx'
 gem "roo", "~> 2.10.0"
-gem "pry", require: true
+
+group :development do
+  gem "rake"
+  gem "pry", require: true
+end

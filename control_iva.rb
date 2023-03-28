@@ -162,7 +162,6 @@ def crear_archivo_resultante
       end
 
       @afip.each do |row|
-        validator = AfipValidator.new(row, @holistor)
         sheet.add_row [*AfipValidator.new(row, @holistor).call]
       end
     end
@@ -175,6 +174,3 @@ archivo1, archivo2 = ARGV[0], ARGV[1]
 crear_archivo_resultante
 
 puts "Archivo resultante creado correctamente."
-
-#
-# ruby lib/script.rb holistor.xlsx afip.xlsx
