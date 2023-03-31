@@ -1,21 +1,24 @@
 # Control IVA
+clonar el repositorio en un directorio local y acceder al directorio:
 
-Para usar el control de IVA, debe descargarse el comando para consola desde el siguiente enlace:
+```bash
+    git clone https://github.com/facundoosti/control_iva.git
+    cd control_iva
+```
 
-Para Mac: [control_iva-osx](https://github.com/facundoosti/control_iva/blob/main/control_iva-1.0.0-osx.tar.gz)\
-Para Linux-x86: [control_iva-linux-x86](https://github.com/facundoosti/control_iva/blob/main/control_iva-1.0.0-linux-x86.tar.gz)\
-Para Linux-x86_64: [control_iva-linux-x86_64](https://github.com/facundoosti/control_iva/blob/main/control_iva-1.0.0-linux-x86_64.tar.gz)
+### Instalar dependencias
 
+```bash
+    bundle install
+```
 ## Uso
-
-- Crear una carpeta llamada `control_iva` en el escritorio.
-- Descargar los archivos de holistor y afip para control.
-- Renombrar los archivos de excel a `holistor.xlsx` y `afip.xlsx` respectivamente.
+Deberas pasar como parametro la ruta del archivo de holistor y afip, 
+en este caso estan copiados y pegados dentro de la misma carpeta control_iva.
 
 Ejecutar el siguiente comando:
 
 ```bash
-    ./control_iva holistor.xlsx afip.xlsx
+    ruby control_iva holistor.xlsx afip.xlsx
 ```
 
 ## Salida

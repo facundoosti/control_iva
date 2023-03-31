@@ -3,8 +3,8 @@ class AfipValidator < Validator
   FIELD_TYPE = 1
   FIELD_SALE_POINT = 2
   FIELD_INVOICE = 3
-  FIELD_INDETIFIER = 5
-  FIELD_NAME = 6
+  FIELD_INDETIFIER = 6
+  FIELD_NAME = 7
   FIELD_IVA = 13
 
   def valid?
