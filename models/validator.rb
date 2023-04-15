@@ -1,36 +1,32 @@
+# frozen_string_literal: true
+
 class Validator
   Validation = Struct.new(:value, :description)
-  attr_reader :row, :destination
+  attr_reader :invoice, :destination
 
-  def initialize(row, destination)
-    @row = row
+  def initialize(invoice, destination)
+    @invoice = invoice
     @destination = destination
   end
 
-  def call
-    [
-      client_identifier,
-      client_name,
-      invoice_number,
-      invoice_date,
-      invoice_type,
-      invoice_iva,
-      invoice_validated,
-      invoice_description
-    ]
+  def valid
+    validation.value
+  end
+
+  def description
+    validation.description
   end
 
   private
 
-  def invoice_validated
-    validation.value
-  end
-
-  def invoice_description
-    validation.description
-  end
-
   def validation
     @validation ||= build_validation
+  end
+
+  def target
+    @target ||= destination.find do |other_invoice|
+      invoice.number == other_invoice.number &&
+        invoice.sale_point == other_invoice.sale_point
+    end
   end
 end
