@@ -36,11 +36,12 @@ def parse_afip(file)
   xlsx = Roo::Spreadsheet.open(file)
 
   [].tap do |invoices|
-    xlsx.parse(date: 'Fecha', type: 'Tipo', sale_point: 'Punto de Venta', invoice: 'Número Desde',
-               identifier: 'Nro. Doc. Emisor', name: 'Denominación Emisor', iva: 'IVA').each do |row|
+    xlsx.parse(date: 'Fecha', type: 'Tipo', sale_point: 'Número', invoice: 'Número Desde',
+               identifier: 'Nro. Doc. Emisor', name: 'Denominación Emisor', iva: 'Total IVA').each do |row|
       row[:type] = FACTURAS.key row[:type]
       row[:identifier] = row[:identifier].to_s.sub(/\A(\d{2})(\d{8})(\d{1})\z/, '\1-\2-\3')
       row[:iva] = row[:iva].to_f
+      row[:sale_point] = row[:sale_point].split('-')[0].to_i
       invoices << Invoice.new(*row.values)
     end
   end
